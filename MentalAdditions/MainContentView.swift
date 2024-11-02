@@ -9,7 +9,7 @@ struct MainContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear {
                     // Attendre une seconde avant de commencer le jeu
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         isGameStarted = true
                         NotificationCenter.default.post(name: NSNotification.Name("StartGame"), object: nil)
                     }
