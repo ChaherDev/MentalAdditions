@@ -20,7 +20,9 @@ struct MentalAdditionsResultView: View {
                 .foregroundStyle(.yellow)
                 .scaleEffect(scale)
                 .onAppear {
-                    animate()
+                    if score > 0 {
+                        animate()
+                    }
                 }
                 .padding()
                 .bold()
