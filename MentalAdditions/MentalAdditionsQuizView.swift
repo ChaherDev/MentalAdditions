@@ -157,7 +157,7 @@ struct MentalAdditionsQuizView: View {
         let isCorrect = viewModel.submitAnswer(answer)
 
         feedbackMessage = isCorrect ? "+1" : "-1"
-        feedbackColor = isCorrect ? .green : .orange
+        feedbackColor = isCorrect ? .green : Color.red.opacity(0.8)
 
         if showFeedback {
             return

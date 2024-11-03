@@ -17,7 +17,7 @@ struct MentalAdditionsResultView: View {
             Spacer()
             Text("\(score)")
                 .font(.system(size: 100))
-                .foregroundStyle(score >= 0 ? .green : .orange)
+                .foregroundStyle(score >= 0 ? .green : Color.red.opacity(0.8))
                 .scaleEffect(scale)
                 .onAppear {
                     animate()
