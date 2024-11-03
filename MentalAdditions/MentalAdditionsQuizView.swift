@@ -19,7 +19,7 @@ struct MentalAdditionsQuizView: View {
                 if !showResultScreen {
                     if isPreparing {
                         Text("99 seconds\nto answer as\nmany additions\nas possible...")
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(.yellow)
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .bold()
@@ -40,14 +40,14 @@ struct MentalAdditionsQuizView: View {
                         HStack {
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ))
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
                                     startPoint: .topTrailing,
                                     endPoint: .bottomLeading
                                 ))
@@ -85,17 +85,17 @@ struct MentalAdditionsQuizView: View {
                                 .foregroundColor(feedbackColor)
                                 .font(.title)
                                 .bold()
-                                .transition(.opacity.combined(with: .scale)) // Transition pour l'apparition
-                                .animation(.easeInOut(duration: 0.75), value: showFeedback)
-                                .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        if showFeedback { // Vérification avant de cacher
-                                            withAnimation {
-                                                showFeedback = false
-                                            }
-                                        }
-                                    }
-                                }
+                            //    .transition(.opacity.combined(with: .scale))
+                         //       .animation(.easeInOut(duration: 0.75), value: showFeedback)
+//                                .onAppear {
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                        if showFeedback { // Vérification avant de cacher
+//                                            withAnimation {
+//                                                showFeedback = false
+//                                            }
+//                                        }
+//                                    }
+//                                }
                         }
 
                         Spacer()
@@ -103,14 +103,14 @@ struct MentalAdditionsQuizView: View {
                         HStack {
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
                                     startPoint: .bottomLeading,
                                     endPoint: .topTrailing
                                 ))
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
                                     startPoint: .bottomTrailing,
                                     endPoint: .topLeading
                                 ))
@@ -157,7 +157,7 @@ struct MentalAdditionsQuizView: View {
         let isCorrect = viewModel.submitAnswer(answer)
 
         feedbackMessage = isCorrect ? "+1" : "-1"
-        feedbackColor = isCorrect ? .green : .red
+        feedbackColor = isCorrect ? .green : .orange
 
         if showFeedback {
             return
@@ -166,11 +166,11 @@ struct MentalAdditionsQuizView: View {
         showFeedback = true
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if showFeedback {
+           if showFeedback {
                 withAnimation(.easeInOut(duration: 1)) { // Durée d'animation pour la disparition
                     showFeedback = false
                 }
-            }
+           }
         }
     }
 

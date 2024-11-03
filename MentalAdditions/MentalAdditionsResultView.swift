@@ -17,11 +17,7 @@ struct MentalAdditionsResultView: View {
             Spacer()
             Text("\(score)")
                 .font(.system(size: 100))
-                .foregroundStyle(LinearGradient(
-                    gradient: Gradient(colors: [Color.red, Color.yellow, Color.red]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                ))
+                .foregroundStyle(score >= 0 ? .yellow : .orange)
                 .scaleEffect(scale)
                 .onAppear {
                     animate()
