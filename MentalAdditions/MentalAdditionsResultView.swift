@@ -27,9 +27,10 @@ struct MentalAdditionsResultView: View {
                 .padding()
                 .bold()
             Spacer()
-            Text("Screen and share your\nscore to your friends")
+            Text(score > 0 ? "Screen and share your\nscore to your friends" : "Please, never share\nthis score to your friends.")
                 .font(.subheadline)
                 .foregroundColor(.white)
+                .multilineTextAlignment(.center)
             Button(action: onRestart) {
                 Text("RESTART")
                     .padding()
@@ -37,7 +38,7 @@ struct MentalAdditionsResultView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .font(.title)
-                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 1.5, y: 5)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
             }
         }
         .padding()

@@ -45,7 +45,12 @@ struct MentalAdditionsQuizView: View {
                                     endPoint: .bottomTrailing
                                 ))
                             Spacer()
-                            Text("❔")
+                            Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                ))
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
@@ -102,7 +107,12 @@ struct MentalAdditionsQuizView: View {
                                     endPoint: .topTrailing
                                 ))
                             Spacer()
-                            Text("❔")
+                            Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                    startPoint: .bottom,
+                                    endPoint: .top
+                                ))
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
