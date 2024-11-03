@@ -18,7 +18,7 @@ struct MentalAdditionsQuizView: View {
             VStack {
                 if !showResultScreen {
                     if isPreparing {
-                        Text("99 seconds\nto answer as\nmany additions\nas possible...")
+                        Text("Get Ready\n...")
                             .foregroundStyle(.yellow)
                             .font(.largeTitle)
                             .foregroundColor(.white)

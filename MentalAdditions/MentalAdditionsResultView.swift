@@ -23,7 +23,7 @@ struct MentalAdditionsResultView: View {
                     animate()
                 }
                 .padding()
-                .multilineTextAlignment(.center)
+                .bold()
             Spacer()
             Button(action: onRestart) {
                 Text("Restart")
