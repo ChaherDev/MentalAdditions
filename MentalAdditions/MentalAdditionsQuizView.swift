@@ -66,31 +66,34 @@ struct MentalAdditionsQuizView: View {
                             .foregroundColor(.white)
                             .bold()
                             .padding(.vertical, 20)
-
-                        ForEach(question.options, id: \.self) { option in
-                            Button(action: {
-                                handleAnswerSelection(option)
-                            }) {
-                                Text("\(option)")
-                                    .padding()
-                                    .frame(maxWidth: .infinity, minHeight: 80)
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                                    .foregroundColor(.white)
-                                    .font(.title2)
-                                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
+                        Spacer()
+                        VStack {
+                            Text(" ")
+                            ForEach(question.options, id: \.self) { option in
+                                Button(action: {
+                                    handleAnswerSelection(option)
+                                }) {
+                                    Text("\(option)")
+                                        .padding()
+                                        .frame(maxWidth: .infinity, minHeight: 80)
+                                        .background(Color.blue)
+                                        .cornerRadius(10)
+                                        .foregroundColor(.white)
+                                        .font(.title2)
+                                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
+                                }
+                            }
+                            
+                            if showFeedback {
+                                Text(feedbackMessage)
+                                    .foregroundColor(feedbackColor)
+                                    .font(.title)
+                                    .bold()
                             }
                         }
-
-                        if showFeedback {
-                            Text(feedbackMessage)
-                                .foregroundColor(feedbackColor)
-                                .font(.title)
-                                .bold()
-                        }
-
+                        .frame(height: 310)
                         Spacer()
-
+                        Spacer()
                         HStack {
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
