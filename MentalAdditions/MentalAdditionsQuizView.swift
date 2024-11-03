@@ -80,7 +80,7 @@ struct MentalAdditionsQuizView: View {
                                         .cornerRadius(10)
                                         .foregroundColor(.white)
                                         .font(.title2)
-                                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
+                                        .shadow(color: Color.black.opacity(0.4), radius: 5, x: 1.5, y: 5)
                                 }
                             }
                             
@@ -161,7 +161,7 @@ struct MentalAdditionsQuizView: View {
 
         showFeedback = true
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
            if showFeedback {
                 withAnimation(.easeInOut(duration: 1)) { // Durée d'animation pour la disparition
                     showFeedback = false

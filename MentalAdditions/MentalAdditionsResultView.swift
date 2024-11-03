@@ -36,7 +36,8 @@ struct MentalAdditionsResultView: View {
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .font(.largeTitle)
+                    .font(.title)
+                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 1.5, y: 5)
             }
         }
         .padding()
