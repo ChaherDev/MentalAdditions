@@ -7,6 +7,7 @@ struct MentalAdditionsQuizView: View {
     @State private var timeElapsed: TimeInterval = 99
     @State private var isRunning = false
     @State private var showResultScreen = false
+    @State private var isPreparing = true // Ajout d'un état pour la préparation
     @State var viewModel = MentalAdditionsViewModel()
 
     var body: some View {
@@ -16,74 +17,93 @@ struct MentalAdditionsQuizView: View {
 
             VStack {
                 if !showResultScreen {
-                    HStack {
-                        Text("❔")
-                    }
-                    .font(.system(size: 75))
-                    .bold()
-                    .padding()
-
-                    Spacer()
-
-                    // Boucle infinie des questions
-                    let question = viewModel.questions[viewModel.currentQuestionIndex]
-                    Text("\(question.firstTerm) + \(question.secondTerm)")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                        .bold()
-                        .padding(.vertical, 20)
-
-                    ForEach(question.options, id: \.self) { option in
-                        Button(action: {
-                            handleAnswerSelection(option)
-                        }) {
-                            Text("\(option)")
-                                .padding()
-                                .frame(maxWidth: .infinity, minHeight: 80)
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                                .foregroundColor(.white)
-                                .font(.title2)
-                                .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
-                        }
-                    }
-
-                    if showFeedback {
-                        Text(feedbackMessage)
-                            .foregroundColor(feedbackColor)
-                            .font(.title)
+                    if isPreparing {
+                        Text("Preparing Quiz") // Texte de préparation
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
                             .bold()
-                            .transition(.opacity.combined(with: .scale))
-                            .animation(.easeInOut(duration: 0.5), value: showFeedback)
+                            .padding()
+                            .transition(.opacity)
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) { // Durée de préparation
                                     withAnimation {
-                                        self.showFeedback = false
+                                        self.isPreparing = false
+                                    }
+                                    // Démarrer le timer après un délai de 2 secondes
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        self.startTimer()
                                     }
                                 }
                             }
-                    }
+                    } else {
+                        HStack {
+                            Text("❔")
+                        }
+                        .font(.system(size: 75))
+                        .bold()
+                        .padding()
 
-                    Spacer()
+                        Spacer()
 
-                    HStack {
+                        // Boucle infinie des questions
+                        let question = viewModel.questions[viewModel.currentQuestionIndex]
+                        Text("\(question.firstTerm) + \(question.secondTerm)")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .bold()
+                            .padding(.vertical, 20)
+
+                        ForEach(question.options, id: \.self) { option in
+                            Button(action: {
+                                handleAnswerSelection(option)
+                            }) {
+                                Text("\(option)")
+                                    .padding()
+                                    .frame(maxWidth: .infinity, minHeight: 80)
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+                                    .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
+                            }
+                        }
+
+                        if showFeedback {
+                            Text(feedbackMessage)
+                                .foregroundColor(feedbackColor)
+                                .font(.title)
+                                .bold()
+                                .transition(.opacity.combined(with: .scale))
+                                .animation(.easeInOut(duration: 0.5), value: showFeedback)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        withAnimation {
+                                            self.showFeedback = false
+                                        }
+                                    }
+                                }
+                        }
+
                         Spacer()
-                        Text("\(Int(timeElapsed))")
-                        Spacer()
-                        Spacer()
-                        Spacer()
-                        Text("\(Int(timeElapsed))")
-                        Spacer()
+
+                        HStack {
+                            Spacer()
+                            Text("\(Int(timeElapsed))")
+                            Spacer()
+                            Spacer()
+                            Spacer()
+                            Text("\(Int(timeElapsed))")
+                            Spacer()
+                        }
+                        .foregroundStyle(LinearGradient(
+                            gradient: Gradient(colors: [Color.yellow, Color.red]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ))
+                        .font(.system(size: 65))
+                        .bold()
+                        .padding()
                     }
-                    .foregroundStyle(LinearGradient(
-                        gradient: Gradient(colors: [Color.yellow, Color.red]),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ))
-                    .font(.system(size: 65))
-                    .bold()
-                    .padding()
-                    
                 } else {
                     MentalAdditionsResultView(score: viewModel.score, onRestart: {
                         resetGame()
@@ -91,12 +111,14 @@ struct MentalAdditionsQuizView: View {
                 }
             }
             .padding()
-            .onAppear(perform: startTimer)
             .onDisappear(perform: stopTimer)
         }
     }
 
     private func startTimer() {
+        // Ne pas démarrer le timer si nous sommes encore en préparation
+        guard !isPreparing else { return }
+        
         isRunning = true
         timeElapsed = 99
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -123,6 +145,9 @@ struct MentalAdditionsQuizView: View {
         feedbackMessage = isCorrect ? "Correct" : "Wrong"
         feedbackColor = isCorrect ? .green : .red
 
+        // Ne pas redémarrer l'animation si elle est déjà visible
+        guard !showFeedback else { return }
+        
         withAnimation {
             showFeedback = true
         }
@@ -131,6 +156,9 @@ struct MentalAdditionsQuizView: View {
     private func resetGame() {
         viewModel.reset()
         showResultScreen = false
-        startTimer()
+        isPreparing = true // Réinitialiser l'état de préparation
+        timeElapsed = 99 // Réinitialiser le chrono
+        stopTimer() // Arrêter le chrono si nécessaire
+        // Le timer redémarrera à la prochaine question, après la préparation
     }
 }
