@@ -17,7 +17,7 @@ struct MentalAdditionsResultView: View {
             Spacer()
             Text("\(score)")
                 .font(.system(size: 100))
-                .foregroundStyle(score >= 0 ? .yellow : .orange)
+                .foregroundStyle(score >= 0 ? .green : .orange)
                 .scaleEffect(scale)
                 .onAppear {
                     animate()
@@ -28,7 +28,7 @@ struct MentalAdditionsResultView: View {
             Button(action: onRestart) {
                 Text("Restart")
                     .padding()
-                    .background(Color.green)
+                    .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .font(.largeTitle)
