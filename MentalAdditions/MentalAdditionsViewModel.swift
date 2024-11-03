@@ -33,7 +33,7 @@ class MentalAdditionsViewModel {
 
     static func generateQuestions() -> [MentalAdditionsQuestion] {
         var questions = [MentalAdditionsQuestion]()
-        for _ in 1...20 { // Générer un nombre illimité de questions
+        for _ in 1...2000 { // Générer un nombre illimité de questions
             let firstTerm = Int.random(in: 1...10_000)
             let secondTerm = Int.random(in: 1...10_000)
             questions.append(MentalAdditionsQuestion(firstTerm: firstTerm, secondTerm: secondTerm))
