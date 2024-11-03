@@ -7,7 +7,7 @@ struct MentalAdditionsQuizView: View {
     @State private var timeElapsed: TimeInterval = 99
     @State private var isRunning = false
     @State private var showResultScreen = false
-    @State private var isPreparing = true // Ajout d'un état pour la préparation
+    @State private var isPreparing = true
     @State var viewModel = MentalAdditionsViewModel()
 
     var body: some View {
@@ -18,18 +18,17 @@ struct MentalAdditionsQuizView: View {
             VStack {
                 if !showResultScreen {
                     if isPreparing {
-                        Text("Preparing Quiz") // Texte de préparation
+                        Text("Preparing Quiz")
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .bold()
                             .padding()
                             .transition(.opacity)
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) { // Durée de préparation
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                     withAnimation {
                                         self.isPreparing = false
                                     }
-                                    // Démarrer le timer après un délai de 2 secondes
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                         self.startTimer()
                                     }
@@ -45,7 +44,6 @@ struct MentalAdditionsQuizView: View {
 
                         Spacer()
 
-                        // Boucle infinie des questions
                         let question = viewModel.questions[viewModel.currentQuestionIndex]
                         Text("\(question.firstTerm) + \(question.secondTerm)")
                             .font(.largeTitle)
@@ -73,12 +71,14 @@ struct MentalAdditionsQuizView: View {
                                 .foregroundColor(feedbackColor)
                                 .font(.title)
                                 .bold()
-                                .transition(.opacity.combined(with: .scale))
-                                .animation(.easeInOut(duration: 0.5), value: showFeedback)
+                                .transition(.opacity.combined(with: .scale)) // Transition pour l'apparition
+                                .animation(.easeInOut(duration: 0.75), value: showFeedback)
                                 .onAppear {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        withAnimation {
-                                            self.showFeedback = false
+                                        if showFeedback { // Vérification avant de cacher
+                                            withAnimation {
+                                                showFeedback = false
+                                            }
                                         }
                                     }
                                 }
@@ -116,7 +116,6 @@ struct MentalAdditionsQuizView: View {
     }
 
     private func startTimer() {
-        // Ne pas démarrer le timer si nous sommes encore en préparation
         guard !isPreparing else { return }
         
         isRunning = true
@@ -145,20 +144,26 @@ struct MentalAdditionsQuizView: View {
         feedbackMessage = isCorrect ? "Correct" : "Wrong"
         feedbackColor = isCorrect ? .green : .red
 
-        // Ne pas redémarrer l'animation si elle est déjà visible
-        guard !showFeedback else { return }
-        
-        withAnimation {
-            showFeedback = true
+        if showFeedback {
+            return
+        }
+
+        showFeedback = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if showFeedback {
+                withAnimation(.easeInOut(duration: 1)) { // Durée d'animation pour la disparition
+                    showFeedback = false
+                }
+            }
         }
     }
 
     private func resetGame() {
         viewModel.reset()
         showResultScreen = false
-        isPreparing = true // Réinitialiser l'état de préparation
-        timeElapsed = 99 // Réinitialiser le chrono
-        stopTimer() // Arrêter le chrono si nécessaire
-        // Le timer redémarrera à la prochaine question, après la préparation
+        isPreparing = true
+        timeElapsed = 99
+        stopTimer()
     }
 }
