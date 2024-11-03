@@ -3,6 +3,9 @@ import SwiftUI
 struct MentalAdditionsResultView: View {
     let score: Int
     let onRestart: () -> Void
+    @State private var scale: CGFloat = 1.0
+    private let minScale: CGFloat = 0.8
+    private let maxScale: CGFloat = 1.5
     
     var body: some View {
         VStack {
@@ -19,6 +22,10 @@ struct MentalAdditionsResultView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 ))
+                .scaleEffect(scale)
+                .onAppear {
+                    animate()
+                }
                 .padding()
                 .multilineTextAlignment(.center)
             Spacer()
@@ -33,5 +40,11 @@ struct MentalAdditionsResultView: View {
             }
         }
         .padding()
+    }
+    
+    private func animate() {
+        withAnimation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+            scale = maxScale
+        }
     }
 }
