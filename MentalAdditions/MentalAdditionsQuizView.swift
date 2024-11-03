@@ -15,16 +15,16 @@ struct MentalAdditionsQuizView: View {
                 .ignoresSafeArea()
 
             VStack {
-                HStack {
-                    Text("❔")
-                }
-                .font(.system(size: 75))
-                .bold()
-                .padding()
-
-                Spacer()
-
                 if !showResultScreen {
+                    HStack {
+                        Text("❔")
+                    }
+                    .font(.system(size: 75))
+                    .bold()
+                    .padding()
+
+                    Spacer()
+
                     // Boucle infinie des questions
                     let question = viewModel.questions[viewModel.currentQuestionIndex]
                     Text("\(question.firstTerm) + \(question.secondTerm)")
@@ -63,30 +63,32 @@ struct MentalAdditionsQuizView: View {
                                 }
                             }
                     }
+
+                    Spacer()
+
+                    HStack {
+                        Spacer()
+                        Text("\(Int(timeElapsed))")
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Text("\(Int(timeElapsed))")
+                        Spacer()
+                    }
+                    .foregroundStyle(LinearGradient(
+                        gradient: Gradient(colors: [Color.yellow, Color.red]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ))
+                    .font(.system(size: 65))
+                    .bold()
+                    .padding()
+                    
                 } else {
                     MentalAdditionsResultView(score: viewModel.score, onRestart: {
                         resetGame()
                     })
                 }
-                Spacer()
-                HStack {
-                    Spacer()
-                    Text("\(Int(timeElapsed))")
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Text("\(Int(timeElapsed))")
-                    Spacer()
-                    
-                }
-                .foregroundStyle(LinearGradient(
-                    gradient: Gradient(colors: [Color.yellow, Color.red]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                ))
-                .font(.system(size: 65))
-                .bold()
-                .padding()
             }
             .padding()
             .onAppear(perform: startTimer)
