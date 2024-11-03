@@ -9,7 +9,7 @@ struct MentalAdditionsResultView: View {
     
     var body: some View {
         VStack {
-            Text("Mental Additions Score")
+            Text("MentalAdditionsScore")
                 .font(.title)
                 .foregroundColor(.white)
                 .bold()
@@ -27,8 +27,9 @@ struct MentalAdditionsResultView: View {
                 .padding()
                 .bold()
             Spacer()
-            Text("Screen and share your score to your friends")
+            Text("Screen and share your\nscore to your friends")
                 .font(.subheadline)
+                .foregroundColor(.white)
             Button(action: onRestart) {
                 Text("RESTART")
                     .padding()
