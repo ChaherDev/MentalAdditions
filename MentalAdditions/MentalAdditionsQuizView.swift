@@ -12,17 +12,19 @@ struct MentalAdditionsQuizView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple]), startPoint: .top, endPoint: .bottom)
+            RadialGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple]), center: .center, startRadius: 0, endRadius: 500)
                 .ignoresSafeArea()
 
             VStack {
                 if !showResultScreen {
                     if isPreparing {
-                        Text("Preparing Quiz")
+                        Text("99 seconds\nto answer as\nmany additions\nas possible")
+                            .foregroundStyle(.orange)
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .bold()
                             .padding()
+                            .multilineTextAlignment(.center)
                             .transition(.opacity)
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -36,9 +38,25 @@ struct MentalAdditionsQuizView: View {
                             }
                     } else {
                         HStack {
-                            Text("❔")
+                            Spacer()
+                            Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ))
+                            Spacer()
+                            Spacer()
+                            Spacer()
+                            Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    startPoint: .topTrailing,
+                                    endPoint: .bottomLeading
+                                ))
+                            Spacer()
                         }
-                        .font(.system(size: 75))
+                        .font(.system(size: 65))
                         .bold()
                         .padding()
 
@@ -89,17 +107,22 @@ struct MentalAdditionsQuizView: View {
                         HStack {
                             Spacer()
                             Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                ))
                             Spacer()
                             Spacer()
                             Spacer()
                             Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.red, Color.yellow]),
+                                    startPoint: .bottomTrailing,
+                                    endPoint: .topLeading
+                                ))
                             Spacer()
                         }
-                        .foregroundStyle(LinearGradient(
-                            gradient: Gradient(colors: [Color.yellow, Color.red]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ))
                         .font(.system(size: 65))
                         .bold()
                         .padding()
@@ -141,7 +164,7 @@ struct MentalAdditionsQuizView: View {
     private func handleAnswerSelection(_ answer: Int) {
         let isCorrect = viewModel.submitAnswer(answer)
 
-        feedbackMessage = isCorrect ? "Correct" : "Wrong"
+        feedbackMessage = isCorrect ? "+1" : "-1"
         feedbackColor = isCorrect ? .green : .red
 
         if showFeedback {

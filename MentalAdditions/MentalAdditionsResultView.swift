@@ -6,15 +6,19 @@ struct MentalAdditionsResultView: View {
     
     var body: some View {
         VStack {
-            Text("Time's Up!")
+            Text("Your Score")
                 .font(.largeTitle)
                 .foregroundColor(.white)
                 .bold()
                 .padding()
             Spacer()
-            Text("Your Score is: \(score)")
-                .font(.title)
-                .foregroundColor(.white)
+            Text("\(score)")
+                .font(.system(size: 100))
+                .foregroundStyle(LinearGradient(
+                    gradient: Gradient(colors: [Color.red, Color.yellow, Color.red]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                ))
                 .padding()
                 .multilineTextAlignment(.center)
             Spacer()
@@ -24,7 +28,7 @@ struct MentalAdditionsResultView: View {
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .font(.title2)
+                    .font(.largeTitle)
                     .shadow(color: Color.black.opacity(0.4), radius: 5, x: 0, y: 5)
             }
         }

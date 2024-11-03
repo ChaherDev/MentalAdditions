@@ -14,7 +14,11 @@ class MentalAdditionsViewModel {
     
     func submitAnswer(_ answer: Int) -> Bool {
         let isCorrect = questions[currentQuestionIndex].correctAnswer == answer
-        if isCorrect { score += 1 }
+        if isCorrect {
+            score += 1
+        } else {
+            score -= 1
+        }
         currentQuestionIndex += 1
         
         // Vérifier si toutes les questions ont été répondues
