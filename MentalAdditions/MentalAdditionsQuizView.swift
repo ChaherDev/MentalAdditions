@@ -40,7 +40,7 @@ struct MentalAdditionsQuizView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .clipShape(RoundedRectangle(cornerRadius: 28))
                                 .rotationEffect(.degrees(isRotating ? 360 : 0))
                             Spacer()
                             Spacer()
