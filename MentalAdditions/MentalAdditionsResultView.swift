@@ -11,13 +11,13 @@ struct MentalAdditionsResultView: View {
                 .foregroundColor(.white)
                 .bold()
                 .padding()
-            
+            Spacer()
             Text("Your Score is: \(score)")
                 .font(.title)
                 .foregroundColor(.white)
                 .padding()
                 .multilineTextAlignment(.center)
-            
+            Spacer()
             Button(action: onRestart) {
                 Text("Restart")
                     .padding()

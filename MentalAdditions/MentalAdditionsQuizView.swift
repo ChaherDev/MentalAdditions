@@ -19,11 +19,6 @@ struct MentalAdditionsQuizView: View {
                     Text("❔")
                 }
                 .font(.system(size: 75))
-                .foregroundStyle(.green)
-//                .foregroundStyle(LinearGradient(
-//                    gradient: Gradient(colors: [Color.yellow, Color.red]),
-//                    startPoint: .bottom, endPoint: .top
-//                ))
                 .bold()
                 .padding()
 
