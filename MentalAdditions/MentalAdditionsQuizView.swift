@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MentalAdditionsQuizView: View {
+    @State var viewModel = MentalAdditionsViewModel()
     @State private var feedbackMessage = ""
     @State private var feedbackColor: Color = .clear
     @State private var showFeedback = false
@@ -8,7 +9,7 @@ struct MentalAdditionsQuizView: View {
     @State private var isRunning = false
     @State private var showResultScreen = false
     @State private var isPreparing = true
-    @State var viewModel = MentalAdditionsViewModel()
+    @State private var isRotating = false
 
     var body: some View {
         ZStack {
@@ -18,14 +19,11 @@ struct MentalAdditionsQuizView: View {
             VStack {
                 if !showResultScreen {
                     if isPreparing {
-                        Text("Get Ready\n...")
-                            .foregroundStyle(.yellow)
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .bold()
-                            .padding()
-                            .multilineTextAlignment(.center)
-                            .transition(.opacity)
+                        Image("MentalAdditions")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                            .clipShape(RoundedRectangle(cornerRadius: 65))
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                     withAnimation {
@@ -37,27 +35,15 @@ struct MentalAdditionsQuizView: View {
                                 }
                             }
                     } else {
-                        HStack {
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ))
+                        HStack() {
+                            Image("MentalAdditions")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .rotationEffect(.degrees(isRotating ? 360 : 0))
                             Spacer()
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                ))
                             Spacer()
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .topTrailing,
-                                    endPoint: .bottomLeading
-                                ))
                         }
                         .font(.system(size: 65))
                         .bold()
@@ -99,20 +85,11 @@ struct MentalAdditionsQuizView: View {
                         .frame(height: 310)
                         Spacer()
                         Spacer()
+                        Spacer()
                         HStack {
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
-                                ))
+                            Text(" ")
                             Spacer()
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .bottom,
-                                    endPoint: .top
-                                ))
+                            Text(" ")
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
