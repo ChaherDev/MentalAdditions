@@ -9,15 +9,15 @@ struct MentalAdditionsResultView: View {
     
     var body: some View {
         VStack {
-            Text("Your Score")
-                .font(.largeTitle)
+            Text("Your MentalAdditions Score is:")
+                .font(.title)
                 .foregroundColor(.white)
                 .bold()
                 .padding()
             Spacer()
             Text("\(score)")
                 .font(.system(size: 100))
-                .foregroundStyle(score >= 0 ? .green : Color.red.opacity(0.8))
+                .foregroundStyle(.yellow)
                 .scaleEffect(scale)
                 .onAppear {
                     animate()
@@ -25,8 +25,10 @@ struct MentalAdditionsResultView: View {
                 .padding()
                 .bold()
             Spacer()
+            Text("Screen and share your score to your friends")
+                .font(.subheadline)
             Button(action: onRestart) {
-                Text("Restart")
+                Text("RESTART")
                     .padding()
                     .background(Color.blue)
                     .foregroundColor(.white)

@@ -45,6 +45,8 @@ struct MentalAdditionsQuizView: View {
                                     endPoint: .bottomTrailing
                                 ))
                             Spacer()
+                            Text("❔")
+                            Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
                                     gradient: Gradient(colors: [Color.orange, Color.yellow]),
@@ -85,17 +87,6 @@ struct MentalAdditionsQuizView: View {
                                 .foregroundColor(feedbackColor)
                                 .font(.title)
                                 .bold()
-                            //    .transition(.opacity.combined(with: .scale))
-                         //       .animation(.easeInOut(duration: 0.75), value: showFeedback)
-//                                .onAppear {
-//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                        if showFeedback { // Vérification avant de cacher
-//                                            withAnimation {
-//                                                showFeedback = false
-//                                            }
-//                                        }
-//                                    }
-//                                }
                         }
 
                         Spacer()
@@ -107,6 +98,8 @@ struct MentalAdditionsQuizView: View {
                                     startPoint: .bottomLeading,
                                     endPoint: .topTrailing
                                 ))
+                            Spacer()
+                            Text("❔")
                             Spacer()
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
