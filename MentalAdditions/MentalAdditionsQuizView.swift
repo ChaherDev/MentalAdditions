@@ -15,20 +15,16 @@ struct MentalAdditionsQuizView: View {
                 .ignoresSafeArea()
 
             VStack {
-                // Affichage de l'interface du quiz
                 HStack {
-                    Text("🌟")
-                    Spacer()
-                    Text("\(viewModel.score)") // Score sans /9
-                        .foregroundStyle(LinearGradient(
-                            gradient: Gradient(colors: [Color.yellow, Color.orange]),
-                            startPoint: .top, endPoint: .bottom
-                        ))
-                        .bold()
-                    Spacer()
-                    Text("🌟")
+                    Text("❔")
                 }
-                .font(.system(size: 65))
+                .font(.system(size: 75))
+                .foregroundStyle(.green)
+//                .foregroundStyle(LinearGradient(
+//                    gradient: Gradient(colors: [Color.yellow, Color.red]),
+//                    startPoint: .bottom, endPoint: .top
+//                ))
+                .bold()
                 .padding()
 
                 Spacer()
@@ -36,7 +32,7 @@ struct MentalAdditionsQuizView: View {
                 if !showResultScreen {
                     // Boucle infinie des questions
                     let question = viewModel.questions[viewModel.currentQuestionIndex]
-                    Text("\(question.firstTerm) + \(question.secondTerm) = ?")
+                    Text("\(question.firstTerm) + \(question.secondTerm)")
                         .font(.largeTitle)
                         .foregroundColor(.white)
                         .bold()
@@ -73,31 +69,26 @@ struct MentalAdditionsQuizView: View {
                             }
                     }
                 } else {
-                    // Affichage du résultat final sans .sheet
                     MentalAdditionsResultView(score: viewModel.score, onRestart: {
                         resetGame()
                     })
                 }
-
                 Spacer()
                 HStack {
-                    Text("\(Int(timeElapsed))")
-                        .foregroundStyle(LinearGradient(
-                            gradient: Gradient(colors: [Color.orange, Color.red]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ))
-                    Spacer()
-                    Text("⏱️")
                     Spacer()
                     Text("\(Int(timeElapsed))")
-                        .foregroundStyle(LinearGradient(
-                            gradient: Gradient(colors: [Color.orange, Color.red]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ))
-                        
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Text("\(Int(timeElapsed))")
+                    Spacer()
+                    
                 }
+                .foregroundStyle(LinearGradient(
+                    gradient: Gradient(colors: [Color.yellow, Color.red]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                ))
                 .font(.system(size: 65))
                 .bold()
                 .padding()
