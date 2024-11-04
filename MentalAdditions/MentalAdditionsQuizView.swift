@@ -47,8 +47,8 @@ struct MentalAdditionsQuizView: View {
                             Text("\(Int(timeElapsed))")
                                 .foregroundStyle(LinearGradient(
                                     gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .bottomTrailing,
-                                    endPoint: .topLeading
+                                    startPoint: .topTrailing,
+                                    endPoint: .bottomLeading
                                 ))
                         }
                         .font(.system(size: 65))
