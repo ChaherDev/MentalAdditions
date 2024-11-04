@@ -13,7 +13,6 @@ struct MentalAdditionsResultView: View {
                 .font(.title)
                 .foregroundColor(.white)
                 .bold()
-              //  .padding()
             Spacer()
             Text("\(score)")
                 .font(.system(size: 100))

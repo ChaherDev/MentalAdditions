@@ -7,6 +7,7 @@ class MentalAdditionsViewModel {
     var currentQuestionIndex = 0
     var questions: [MentalAdditionsQuestion]
     var isGameFinished: Bool = false
+    let optionCount = UIScreen.main.bounds.width > 375 ? 6 : 5
 
     init() {
         self.questions = MentalAdditionsViewModel.generateQuestions()

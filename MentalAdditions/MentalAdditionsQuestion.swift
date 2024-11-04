@@ -13,7 +13,8 @@ struct MentalAdditionsQuestion {
         self.secondTerm = secondTerm
 
         var generatedOptions: Set<Int> = [firstTerm + secondTerm]
-        while generatedOptions.count < 4 {
+        let optionCount = UIScreen.main.bounds.width > 375 ? 6 : 5
+        while generatedOptions.count < optionCount {
             let randomValue = Int.random(in: 0...499999)
             generatedOptions.insert(randomValue)
         }

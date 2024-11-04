@@ -10,6 +10,7 @@ struct MentalAdditionsQuizView: View {
     @State private var showResultScreen = false
     @State private var isPreparing = true
     @State private var isRotating = false
+    let optionCount = UIScreen.main.bounds.width > 375 ? 6 : 5
 
     var body: some View {
         ZStack {
@@ -39,15 +40,20 @@ struct MentalAdditionsQuizView: View {
                             Image("MentalAdditions")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 100, height: 100)
+                                .frame(width: 80, height: 80)
                                 .clipShape(RoundedRectangle(cornerRadius: 28))
                                 .rotationEffect(.degrees(isRotating ? 360 : 0))
                             Spacer()
-                            Spacer()
+                            Text("\(Int(timeElapsed))")
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                                    startPoint: .bottomTrailing,
+                                    endPoint: .topLeading
+                                ))
                         }
                         .font(.system(size: 65))
                         .bold()
-                        .padding()
+                        .padding(.vertical, 16)
 
                         Spacer()
 
@@ -66,7 +72,7 @@ struct MentalAdditionsQuizView: View {
                                 }) {
                                     Text("\(option)")
                                         .padding()
-                                        .frame(maxWidth: .infinity, minHeight: 80)
+                                        .frame(maxWidth: .infinity, minHeight: 70)
                                         .background(Color.blue)
                                         .cornerRadius(10)
                                         .foregroundColor(.white)
@@ -82,7 +88,7 @@ struct MentalAdditionsQuizView: View {
                                     .bold()
                             }
                         }
-                        .frame(height: 310)
+                        .frame(height: optionCount == 5 ? 330 : 400)
                         Spacer()
                         Spacer()
                         Spacer()
@@ -91,16 +97,10 @@ struct MentalAdditionsQuizView: View {
                             Spacer()
                             Text(" ")
                             Spacer()
-                            Text("\(Int(timeElapsed))")
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
-                                    startPoint: .bottomTrailing,
-                                    endPoint: .topLeading
-                                ))
+                            Text(" ")
                         }
-                        .font(.system(size: 65))
+                        .font(.system(size: 2))
                         .bold()
-                        .padding()
                     }
                 } else {
                     MentalAdditionsResultView(score: viewModel.score, onRestart: {
@@ -123,7 +123,7 @@ struct MentalAdditionsQuizView: View {
                 timer.invalidate()
                 return
             }
-            if self.timeElapsed > 0 {
+            if self.timeElapsed > 1 {
                 self.timeElapsed -= 1
             } else {
                 self.showResultScreen = true
